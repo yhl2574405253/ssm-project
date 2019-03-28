@@ -13,12 +13,28 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     StudentMapper studentMapper;
 
-    /**
-     * 查询所有的学生
-     * @return
-     */
+    public void insertStudent(Student student) {
+        studentMapper.insertStudent(student);
+    }
+
+    public void deleteStudent(String id) {
+        studentMapper.deleteStudent(id);
+    }
+
+    public void updateStudent(Student student) {
+        studentMapper.updateStudent(student);
+    }
+
     public List<Student> studentList() {
         List<Student> students = studentMapper.studentList();
         return students;
+    }
+
+    public Student studentById(String id) {
+        return studentMapper.studentById(id);
+    }
+
+    public List<Student> studentQuery(Student student) {
+        return studentMapper.studentQuery(student);
     }
 }

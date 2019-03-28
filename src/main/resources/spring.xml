@@ -38,22 +38,6 @@
         <property name="filters" value="stat"></property>
     </bean>
 
-    <!-- 集成mybatis -->
-    <!-- 实例化一个SqlSessionFactory工厂-->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"></property>
-    </bean>
-
-    <!--通过SqlSessionFactory 实例化一个Session-->
-    <bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-        <constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
-    </bean>
-
-    <!-- 扫描mybatis的接口映射文件  -->
-    <bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="cn.et.mapper"></property>
-    </bean>
-
 
     <!-- 事务管理器  不再使用jdbc的commit和rollback 必须由事务管理器提供 配置事物管理器必须要注入dataSource-->
     <bean id="tm"  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -80,4 +64,21 @@
         <!-- 关联切点和事务管理器 将事物跟切点连接起来-->
         <aop:advisor advice-ref="txAdvise" pointcut-ref="myPointCut" />
     </aop:config>
+
+
+    <!-- 集成mybatis -->
+    <!-- 实例化一个SqlSessionFactory工厂-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--指定数据源-->
+        <property name="dataSource" ref="dataSource"></property>
+        <!--指定实体文件所在的位置-->
+        <property name="typeAliasesPackage" value="cn.et.model"/>
+        <!--指定mapper.xml文件所在的位置-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml" />
+    </bean>
+
+    <!-- 扫描mybatis的接口映射文件  -->
+    <bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="cn.et.mapper"></property>
+    </bean>
 </beans>

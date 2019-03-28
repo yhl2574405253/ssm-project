@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.et.mapper.StudentMapper" >
+    <resultMap id="studentMap" type="cn.et.model.Student">
+        <result property="id" column="sid"/>
+        <result property="name" column="sname"/>
+        <result property="age" column="sage"/>
+        <result property="sex" column="ssex"/>
+    </resultMap>
+
+    <insert id="insertStudent">
+        INSERT INTO student (sid,sname,sage,ssex) VALUES (#{student.id},#{student.name},#{student.age},#{student.sex})
+    </insert>
+
+    <update id="updateStudent">
+      UPDATE student
+      <set>
+          <if test="student.name !=null and student.name !=''">
+              sname=#{student.name},
+          </if>
+          <if test="student.age !=null and student.age !=''">
+              sage=#{student.age},
+          </if>
+          <if test="student.sex !=null and student.sex !=''">
+              ssex=#{student.sex},
+          </if>
+      </set>
+      WHERE sid =#{student.id}
+    </update>
+
+    <select id="studentQuery" resultMap="studentMap">
+        select * from student
+        <where>
+            <if test="student.name !=null and student.name !=''">
+                and sname like '%${student.name}%'
+            </if>
+            <if test="student.age !=null and student.age !=''">
+                and sage=#{student.age}
+            </if>
+            <if test="student.sex !=null and student.sex !=''">
+                and ssex=#{student.sex}
+            </if>
+        </where>
+    </select>
+
+</mapper>
