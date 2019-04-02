@@ -93,14 +93,14 @@
             <version>3.2.8</version>
         </dependency>
 
-        <!-- mybatis的子类 用来跟srping进行连接 -->
+        <!-- mybatis的子类 用来跟spring进行连接 -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
             <version>1.2.3</version>
         </dependency>
 
-        <!--javaee.jar包是支持javaweb编程的基础jar包-->
+        <!--javaee.jar包是支持javaWeb编程的基础jar包-->
         <dependency>
             <groupId>org.apache.openejb</groupId>
             <artifactId>javaee-api</artifactId>
